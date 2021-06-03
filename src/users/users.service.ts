@@ -38,6 +38,14 @@ export class UsersService {
   }
 
   /**
+   * Find user by id
+   */
+  async findUserById(userId: string) {
+    const user = await this.userModel.findById(userId).select('-password');
+    return user;
+  }
+
+  /**
    * Find user and return with password propoty
    */
   async findUserPassword(by: { email: string }) {

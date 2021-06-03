@@ -4,6 +4,7 @@ const mockJwtService = {
   provide: JwtService,
   useValue: {
     sign: jest.fn().mockReturnValue('token'),
+    verify: jest.fn().mockReturnValue('eiei'),
   },
 };
 

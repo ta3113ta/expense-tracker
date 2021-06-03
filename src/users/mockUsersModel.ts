@@ -20,6 +20,9 @@ const mockUsersModel = {
       }
       return userWithoutPassword;
     }),
+    findById: jest.fn().mockReturnValue({
+      select: jest.fn().mockReturnValue({ success: true }),
+    }),
   },
 };
 
