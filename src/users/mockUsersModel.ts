@@ -1,5 +1,5 @@
 import { getModelToken } from '@nestjs/mongoose';
-import { User } from './users.schema';
+import { User } from './schemas/users.schema';
 
 const user = { email: 'ta@gmail.com', name: 'ta', password: '1234' };
 
