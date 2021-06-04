@@ -7,7 +7,9 @@ import { Transaction, TransectionSchema } from './schemas/transaction.schema';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Transaction.name, schema: TransectionSchema}]),
+    MongooseModule.forFeature([
+      { name: Transaction.name, schema: TransectionSchema },
+    ]),
     JwtModule.register({ secret: process.env.JWT_SECRET || 'secret' }),
   ],
   controllers: [TransactionsController],

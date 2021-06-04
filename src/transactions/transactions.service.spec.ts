@@ -27,4 +27,20 @@ describe('TransactionsService', () => {
       expect(transections.length).toBeGreaterThan(0);
     });
   });
+
+  describe('create', () => {
+    it('should create a new transection', async () => {
+      // Arrage
+      const transection = {
+        text: 'buy a google company',
+        amount: 20,
+        date: new Date(),
+      };
+      const userId = 'some userid';
+      // Act
+      const transectionResult = await service.create(transection, userId);
+      // Assert
+      expect(transectionResult).toHaveProperty('amount');
+    });
+  });
 });

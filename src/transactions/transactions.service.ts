@@ -12,8 +12,15 @@ export class TransactionsService {
     private transectionModel: Model<TransectionDocument>,
   ) {}
 
-  create(createTransactionDto: CreateTransactionDto) {
-    return 'This action adds a new transaction';
+  /**
+   * Create the new transection
+   */
+  async create(createTransactionDto: CreateTransactionDto, userId: string) {
+    const transection = await this.transectionModel.create({
+      ...createTransactionDto,
+      user: userId,
+    });
+    return transection;
   }
 
   /**
