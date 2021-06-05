@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import mockJwtService from 'auth/mockJwtService';
-import mockTransectionsModel from './schemas/transaction.schema.mock';
+import mocktransactionsModel from './schemas/transaction.schema.mock';
 import { TransactionsController } from './transactions.controller';
-import mockTransectionsService from './transections.service.mock';
+import mocktransactionsService from './transactions.service.mock';
 
 describe('TransactionsController', () => {
   let controller: TransactionsController;
@@ -11,8 +11,8 @@ describe('TransactionsController', () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [TransactionsController],
       providers: [
-        mockTransectionsService,
-        mockTransectionsModel,
+        mocktransactionsService,
+        mocktransactionsModel,
         mockJwtService,
       ],
     }).compile();
@@ -24,26 +24,45 @@ describe('TransactionsController', () => {
     expect(controller).toBeDefined();
   });
 
-  describe('get transection', () => {
-    it('should get all transections', async () => {
+  describe('get transaction', () => {
+    it('should get all transactions', async () => {
       // Arrange
       const user = { user: { userId: 'some id' } };
       // Act
-      const transections = await controller.findAll(user);
+      const transactions = await controller.findAll(user);
       // Assert
-      expect(transections).toHaveProperty('success', true);
+      expect(transactions).toHaveProperty('success', true);
     });
   });
 
-  describe('post transections', () => {
-    it('should add the transection', async () => {
+  describe('post transactions', () => {
+    it('should add the transaction', async () => {
       // Arrange
-      const transection = { text: 'test', amount: 20, date: new Date() };
+      const transaction = { text: 'test', amount: 20, date: new Date() };
       const userId = { user: { userId: '1234' } };
       // Act
-      const transectionResult = await controller.create(transection, userId);
+      const transactionResult = await controller.create(transaction, userId);
       // Assert
-      expect(transectionResult).toHaveProperty('success', true);
+      expect(transactionResult).toHaveProperty('success', true);
+    });
+  });
+
+  describe('update transaction', () => {
+    it('should update the transaction', async () => {
+      // Arrange
+      const transactionId = 'anyId';
+      const transacToUpdate = {
+        amount: 20,
+        text: 'buy a google',
+        date: new Date(),
+      };
+      // Act
+      const transactionResult = await controller.update(
+        transactionId,
+        transacToUpdate,
+      );
+      // Assert
+      expect(transactionResult).toHaveProperty('success', true);
     });
   });
 });

@@ -9,6 +9,12 @@ const mockTransectionsModel = {
     create: jest.fn().mockResolvedValue({
       amount: 20,
     }),
+
+    findByIdAndUpdate: jest.fn((...args: any[]) => {
+      if (args[0] === '1') {
+        return { amount: 20 };
+      }
+    }),
   },
 };
 
