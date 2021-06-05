@@ -62,8 +62,10 @@ export class TransactionsController {
     return { success: true, data: transaction };
   }
 
+  @UseGuards(UserGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.transactionsService.remove(+id);
+  async remove(@Param('id') id: string) {
+    await this.transactionsService.remove(id);
+    return { success: true, data: {} };
   }
 }

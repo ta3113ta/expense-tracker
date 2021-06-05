@@ -56,7 +56,14 @@ export class TransactionsService {
     return transaction;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} transaction`;
+  /**
+   * Remove transaction
+   */
+  async remove(id: string) {
+    const transaction = await this.transectionModel.findById(id);
+    if (!transaction) {
+      throw new NotFoundException('No transection found');
+    }
+    await transaction.remove();
   }
 }
