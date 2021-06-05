@@ -49,12 +49,17 @@ export class TransactionsController {
     return this.transactionsService.findOne(+id);
   }
 
+  @UseGuards(UserGuard)
   @Patch(':id')
-  update(
+  async update(
     @Param('id') id: string,
-    @Body() updateTransactionDto: UpdateTransactionDto,
+    @Body(new ValidationPipe()) updateTransactionDto: UpdateTransactionDto,
   ) {
-    return this.transactionsService.update(+id, updateTransactionDto);
+    const transaction = await this.transactionsService.update(
+      id,
+      updateTransactionDto,
+    );
+    return { success: true, data: transaction };
   }
 
   @Delete(':id')

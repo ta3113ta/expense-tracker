@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, Model } from 'mongoose';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
@@ -38,8 +38,22 @@ export class TransactionsService {
     return `This action returns a #${id} transaction`;
   }
 
-  update(id: number, updateTransactionDto: UpdateTransactionDto) {
-    return `This action updates a #${id} transaction`;
+  /**
+   * Update the transaction
+   */
+  async update(id: string, updateTransactionDto: UpdateTransactionDto) {
+    const { amount, text, date } = updateTransactionDto;
+    const transaction = await this.transectionModel.findByIdAndUpdate(
+      id,
+      { amount, text, date },
+      { new: true },
+    );
+
+    if (!transaction) {
+      throw new NotFoundException('No transaction found');
+    }
+
+    return transaction;
   }
 
   remove(id: number) {
