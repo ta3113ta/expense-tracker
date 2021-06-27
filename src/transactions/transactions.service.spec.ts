@@ -18,6 +18,10 @@ describe('TransactionsService', () => {
     expect(service).toBeDefined();
   });
 
+  describe('query', () => {
+    it.todo('should query this month');
+  });
+
   describe('findAll', () => {
     it('shoud found transections', async () => {
       // Arrange

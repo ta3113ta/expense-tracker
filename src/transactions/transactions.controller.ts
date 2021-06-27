@@ -10,6 +10,7 @@ import {
   UseGuards,
   HttpCode,
   HttpStatus,
+  Query,
 } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
@@ -44,9 +45,29 @@ export class TransactionsController {
     return { success: true, count: transections.length, data: transections };
   }
 
+  @UseGuards(UserGuard)
+  @Get('search')
+  async search(
+    @Query('startDate') startDate: string,
+    @Query('endDate') endDate: string,
+    @Request() req,
+  ) {
+    const { userId } = req.user;
+    const transactions = await this.transactionsService.find({
+      user: userId,
+      date: {
+        $gte: new Date(startDate),
+        $lte: new Date(endDate).setHours(23, 59, 59, 999),
+      },
+    });
+
+    return { success: true, count: transactions.length, data: transactions };
+  }
+
+  @UseGuards(UserGuard)
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.transactionsService.findOne(+id);
+  async findOne() {
+    return { success: true };
   }
 
   @UseGuards(UserGuard)
