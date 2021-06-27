@@ -33,6 +33,7 @@ describe('TransactionsController', () => {
       // Assert
       expect(transactions).toHaveProperty('success', true);
     });
+    it.todo('should get transactions by this month');
   });
 
   describe('post transactions', () => {

@@ -5,6 +5,8 @@ const mockTransectionsService = {
   useValue: {
     findAll: jest.fn().mockResolvedValue({ success: true }),
 
+    find: jest.fn().mockResolvedValue([{}]),
+
     create: jest.fn().mockResolvedValue({ success: true }),
 
     update: jest.fn().mockResolvedValue({ success: true }),

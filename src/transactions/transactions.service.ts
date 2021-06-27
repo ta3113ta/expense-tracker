@@ -34,6 +34,14 @@ export class TransactionsService {
     return transections;
   }
 
+  /**
+   * Query transaction
+   */
+  async find(query) {
+    const transaction = await this.transectionModel.find(query);
+    return transaction;
+  }
+
   findOne(id: number) {
     return `This action returns a #${id} transaction`;
   }
